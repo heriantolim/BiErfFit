@@ -76,17 +76,10 @@ if ~isempty(exitFlag)
 	fprintf('\nBaseline:\n\t           ');
 	fprintf(header1);
 	fprintf(header2);
-	lower=obj.BaselineLow;
-	start=obj.BaselineStart;
-	upper=obj.BaselineUp;
 	x=obj.Baseline;
-	for i=1:2
-		for j=1:numErfs(i)
-			fprintf('\t%5d   %3d',i,j);
-			fprintf(format1,lower(j),start(j),upper(j));
-			fprintf(format2,x(2,j),x(1,j),x(3,j),abs((x(3,j)-x(2,j))/x(1,j))/2);
-		end
-	end
+	fprintf('\t%5s   %3s','','');
+	fprintf(format1,obj.BaselineLow,obj.BaselineStart,obj.BaselineUp);
+	fprintf(format2,x(2,1),x(1,1),x(3,1),abs((x(3,1)-x(2,1))/x(1,1))/2);
 	
 	fprintf('\nHysteresis Profile:\n\t%52s ','');
 	fprintf(header2);
