@@ -1,6 +1,7 @@
 classdef BiErfFit
 %% BiErfFit Class
-%
+%  Fit a hysteresis curve simultaneously with two linear combinations of error
+%  functions.
 %
 % Requires package:
 %  - Common_v1.0.0+
@@ -206,8 +207,8 @@ methods
 			return
 		end
 		ME=MException('PeakFit:InvalidInput',...
-			['Input to set the Data must be a cell with two elements, which ',...
-				'are a real matrix of size [n,2] or [2,n].']);
+			['Input to set the Data must be a cell with two elements, both of',...
+				'which must be a real matrix of size [n,2] or [2,n].']);
 		if iscell(d) && numel(d)==2
 			x=cell(1,2);
 			y=cell(1,2);
