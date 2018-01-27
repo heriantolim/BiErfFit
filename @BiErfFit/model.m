@@ -1,5 +1,19 @@
 function [yModel,yErf,yBaseline]=model(obj,varargin)
 %% Create Fit Model Using the Fit Results
+%  [yModel,yPeak,yBaseline]=obj.model() returns a set of fit models evaluated at
+%  the data points.
+%
+%  [yModel,yPeak,yBaseline]=obj.model(x) evaluates the fit models at x instead.
+%
+%  [yModel,yPeak,yBaseline]=obj.model(x_?,x_?) evaluates the fit models for
+%  curve ? at x_? and curve ? at x_?.
+%
+% Outputs:
+%  yModel: The reconstructed data points from the fit results.
+%
+%  yPeak: A cell containing the resconstructed data points of each peak.
+%
+%  yBaseline: The reconstructed baseline points.
 %
 % Requires package:
 %  - Common_v1.0.0+
