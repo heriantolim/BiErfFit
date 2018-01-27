@@ -1,5 +1,16 @@
 # BiErfFit
-> NOTE: This package is not complete yet, but can still be used with strict settings.
+**BiErfFit** provides a tool to fit a hysteresis curve simultaneously with two linear combinations of error functions. For brevity, we call the curve which forms the left part of the hysteresis, *curve α*, and that which forms the right part, *curve β*. The model used to fit each curve is given by:
+
+f(*x*) ~ `Baseline` + errorfunc1(*x*) + errorfunc2(*x*) + ... + errorfuncN(*x*)
+
+where each error function is a derived form of the standard erf function as given by:
+
+errorfunc(*x*) ~ (`Height`/2) (1 + erf( 2 sqrt(ln(2))(x - `Center`)/`Width`))
+
+`Baseline`, `Center`, `Width`, and `Height` are the fit coefficients.
+
+## Important Notes
+- The algorithm in [fit.m](/@BiErfFit/fit.m) needs a major improvement, particularly for dealing with cases that involve curve fitting with more than one error functions.
 
 ## Licensing
 This software is licensed under the GNU General Public License (version 3).
@@ -45,6 +56,10 @@ obj.Property2Name=Value2;
 obj=BiErfFit(obj);
 ```
 
+`Data` must be specified as a cell containing two elements: the first for curve α and the second for curve β. Each element must be a two-column (or two-row) matrix where the first column (or first row) is the X data points and the second column (or second row) is the Y data points. In the alternative syntax, `XData` and `YData` are respectively the X and the Y data points, also specified as a two-element cell; but instead of matrix, the elements must be a vector.
+
+The curve-fit settings can be specified after the mandatory arguments in Name-Value syntax, e.g. `BiErfFit(Data, 'Window', [10,90], 'NumErfs', [2,3])`. If no settings are specified, the algorithm will attempt to fit the hysteresis curve using the default settings. The default option fits curve α and curve β with one error function each, and may not produce a good fit. See [Best Practices](https://github.com/heriantolim/PeakFit#best-practices) for recommendations in making an optimal fit.
+
 ### Name-Value Pair Arguments
 Any of the [public properties](https://github.com/heriantolim/BiErfFit#public-properties) can be specified as arguments in Name-Value syntax during the object construction. Specifying other things as Name-Value arguments will return an error.
 
@@ -72,15 +87,15 @@ Any of the [public properties](https://github.com/heriantolim/BiErfFit#public-pr
 - (Read-only) `ExitFlag`: Describes the exit condition of the algorithm. Positive flags indicate convergence, within tolerances. Zero flags indicate that the maximum number of function evaluations or iterations was exceeded. Negative flags indicate that the algorithm did not converge to a solution.
 
 ### Fitting Start Points
-- `CenterStart`, `WidthStart`, `HeightStart`:
+- `CenterStart`, `WidthStart`, `HeightStart`: The start points for the center, width, and height, respectively. Specified as a cell containing two vectors: the first for curve α and the second for curve β. Can also be specified as a vector of length two, if `NumErfs` is intended to be [1,1].
 - `BaselineStart`: The initial value for the baseline coefficient. Specified as a real scalar.
 
 ### Fitting Lower Bounds
-- `CenterLow`, `WidthLow`, `HeightLow`:
+- `CenterLow`, `WidthLow`, `HeightLow`: The lower bounds for the center, width, and height, respectively. Specified as a cell containing two vectors: the first for curve α and the second for curve β. Can also be specified as a vector of length two, if `NumErfs` is intended to be [1,1].
 - `BaselineStart`: The lower bound for the baseline coefficient. Specified as a real scalar.
 
 ### Fitting Upper Bounds
-- `CenterLow`, `WidthLow`, `HeightLow`:
+- `CenterLow`, `WidthLow`, `HeightLow`: The upper bounds for the center, width, and height, respectively. Specified as a cell containing two vectors: the first for curve α and the second for curve β. Can also be specified as a vector of length two, if `NumErfs` is intended to be [1,1].
 - `BaselineStart`: The upper bound for the baseline coefficient. Specified as a real scalar.
 
 ### Algorithm Parameters
