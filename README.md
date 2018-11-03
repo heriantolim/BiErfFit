@@ -76,7 +76,7 @@ Fit=BiErfFit(Data, ...
 ```
 The full code is given in [Examples/VO2Er_transition.m](/Examples/VO2Er_transition.m). Two-element vectors are supplied to the start points for the right curve because there are two error functions to be fitted.
 
-![VO2:Er transition](/Examples/VO2Er_transition.png)
+<img title="VO2:Er transition" src="/Examples/VO2Er_transition.png" width="480px">
 
 ## Public Properties
 - `Data`, `XData`, `YData`: The data points of the curve to be fitted.
